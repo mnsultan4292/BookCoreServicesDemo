@@ -18,6 +18,9 @@ namespace BookCoreServicesDemo.Models
 
         public virtual DbSet<CourseTab> CourseTabs { get; set; } = null!;
         public virtual DbSet<MasterBook> MasterBooks { get; set; } = null!;
+        public virtual DbSet<NewTab> NewTabs { get; set; } = null!;
+        public virtual DbSet<UserLogin> UserLogins { get; set; } = null!;
+        public virtual DbSet<UserRegistration> UserRegistrations { get; set; } = null!;
 
 //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 //        {
@@ -62,6 +65,51 @@ namespace BookCoreServicesDemo.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.PurchaseDate).HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<NewTab>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("NewTab");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<UserLogin>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("UserLogin");
+
+                entity.Property(e => e.Password)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Username)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<UserRegistration>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("UserRegistration");
+
+                entity.Property(e => e.Password)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Role)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Username)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
             });
 
             OnModelCreatingPartial(modelBuilder);

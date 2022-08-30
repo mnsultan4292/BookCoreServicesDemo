@@ -39,6 +39,7 @@ namespace BookCoreServicesDemo.Repository
         {
             if (_db != null)
             {
+                
                 _db.MasterBooks.Update(masterBook);
                 return await _db.SaveChangesAsync();
             }

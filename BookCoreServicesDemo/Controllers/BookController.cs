@@ -1,10 +1,12 @@
 ﻿using BookCoreServicesDemo.Models;
 using BookCoreServicesDemo.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookCoreServicesDemo.Controllers
 {
+   
     [Route("api/[controller]")]
     [ApiController]
     public class BookController : ControllerBase
@@ -98,6 +100,7 @@ namespace BookCoreServicesDemo.Controllers
                 int result = 0;
                 result = await bookRepository.DeleteBook(bookId);
 
+                
                 if (result > 0)
                     return Ok(result);
 
