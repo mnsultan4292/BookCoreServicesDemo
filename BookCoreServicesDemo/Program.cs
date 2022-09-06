@@ -26,6 +26,13 @@ builder.Services.AddScoped<IUserRegistrationRepository, UserRegistrationReposito
 builder.Services.AddScoped<IJwtHelper,JwtHelper>();
 builder.Services.AddScoped<SettingDemo>();
 
+// To register the IException filter 
+//builder.Services.AddMvc(options =>
+//{
+//    options.Filters.Add<ExceptionFilter>();  
+//});
+
+
 //JWT Authentication
 
 // 1. You can use this or 
