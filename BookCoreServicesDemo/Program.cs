@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using BookCoreServicesDemo.Extensions;
+using BookCoreServicesDemo.AppSettings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,7 @@ builder.Services.AddDbContext<BookDBContext>(item => item.UseSqlServer(connectio
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IUserRegistrationRepository, UserRegistrationRepository>();
 builder.Services.AddScoped<IJwtHelper,JwtHelper>();
+builder.Services.AddScoped<SettingDemo>();
 
 //JWT Authentication
 
