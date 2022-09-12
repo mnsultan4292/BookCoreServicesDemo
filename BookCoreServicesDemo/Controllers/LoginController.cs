@@ -20,21 +20,26 @@ namespace BookCoreServicesDemo.Controllers
         private readonly IConfiguration _config;
         private readonly IJwtHelper _jwtHelper;
         private readonly SettingDemo _settingDemo;
-        public LoginController(SettingDemo settingDemo, IConfiguration config,IUserRegistrationRepository userRegistrationRepository, IJwtHelper jwtHelper)
-                                
+        private readonly ILogger<LoginController> _logger;
+        public LoginController(SettingDemo settingDemo, IConfiguration config,IUserRegistrationRepository userRegistrationRepository, IJwtHelper jwtHelper, ILogger<LoginController> logger)
+
         {
             _config = config;
             _userReg = userRegistrationRepository;
             _jwtHelper = jwtHelper;
             _settingDemo = settingDemo;
+            _logger = logger;
         }
-        
+
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] UserLogin userLogin)
         {
+            
             //string str = _settingDemo.M1();
             //string str1 = _settingDemo.Setting;
+
+            
             var user =await Authenticate(userLogin);
             if (user != null)
             {
