@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BookCoreServicesDemo.Controllers
 {
-   
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class BookController : ControllerBase
@@ -18,6 +18,7 @@ namespace BookCoreServicesDemo.Controllers
         }   
 
         [HttpGet]
+        
         [Route("GetBooks")]
         public async Task<IActionResult> GetBooks()
         {
