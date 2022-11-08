@@ -6,7 +6,7 @@ using System.Text;
 
 namespace BookCoreServicesDemo.Helper
 {
-    public class JwtHelper : IJwtHelper
+    public class JwtHelper 
     {
         private readonly IConfiguration _config;
         public JwtHelper(IConfiguration configuration)
@@ -38,6 +38,33 @@ namespace BookCoreServicesDemo.Helper
             catch (Exception)
             {
                 throw;
+            }
+        }
+
+        public string ValidateJwtToken(string token)
+        { 
+            var tokenHandler=new JwtSecurityTokenHandler();
+            var key = Encoding.UTF8.GetBytes(_config["Jwt:Key"]);
+            try
+            {
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey=true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    
+                    // set clockskew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)
+                    ClockSkew = TimeSpan.Zero
+                }, out SecurityToken validatedToken);
+                var jwtToken = (JwtSecurityToken)validatedToken;
+                string userName = jwtToken.Claims.FirstOrDefault(x => x.Type == "NameIdentifier").Value;
+                return userName;
+            }
+            catch
+            {
+                // return null if validation fails
+                return null;
             }
         }
     }

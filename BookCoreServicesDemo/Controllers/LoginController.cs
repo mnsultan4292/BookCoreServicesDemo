@@ -18,10 +18,10 @@ namespace BookCoreServicesDemo.Controllers
     {
         private readonly IUserRegistrationRepository _userReg;
         private readonly IConfiguration _config;
-        private readonly IJwtHelper _jwtHelper;
+        private readonly JwtHelper _jwtHelper;
         private readonly SettingDemo _settingDemo;
         private readonly ILogger<LoginController> _logger;
-        public LoginController(SettingDemo settingDemo, IConfiguration config,IUserRegistrationRepository userRegistrationRepository, IJwtHelper jwtHelper, ILogger<LoginController> logger)
+        public LoginController(SettingDemo settingDemo, IConfiguration config,IUserRegistrationRepository userRegistrationRepository, JwtHelper jwtHelper, ILogger<LoginController> logger)
 
         {
             _config = config;

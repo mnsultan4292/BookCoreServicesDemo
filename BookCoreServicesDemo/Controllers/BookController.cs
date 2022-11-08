@@ -1,8 +1,10 @@
-﻿using BookCoreServicesDemo.Models;
+﻿using BookCoreServicesDemo.Helper;
+using BookCoreServicesDemo.Models;
 using BookCoreServicesDemo.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
 
 namespace BookCoreServicesDemo.Controllers
 {
@@ -12,9 +14,11 @@ namespace BookCoreServicesDemo.Controllers
     public class BookController : ControllerBase
     {
         private readonly IBookRepository bookRepository;
-        public BookController(IBookRepository bookRepository)
+        private readonly JwtHelper _jwtHelper;
+        public BookController(IBookRepository bookRepository,JwtHelper jwtHelper)
         {
             this.bookRepository = bookRepository;
+            _jwtHelper = jwtHelper;
         }   
 
         [HttpGet]
@@ -24,6 +28,9 @@ namespace BookCoreServicesDemo.Controllers
         {
             try
             {
+                string accessTokenWithBearerPrefix = Request.Headers[HeaderNames.Authorization];
+                string accessTokenWithoutBearerPrefix = accessTokenWithBearerPrefix.Substring("Bearer ".Length);
+                string str=_jwtHelper.ValidateJwtToken(accessTokenWithoutBearerPrefix);
                 var data =await bookRepository.GetBook();
                 if(data!=null)
                     return Ok(data);

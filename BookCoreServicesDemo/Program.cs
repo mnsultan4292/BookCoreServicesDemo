@@ -23,7 +23,7 @@ builder.Services.AddDbContext<BookDBContext>(item => item.UseSqlServer(connectio
 
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IUserRegistrationRepository, UserRegistrationRepository>();
-builder.Services.AddScoped<IJwtHelper,JwtHelper>();
+builder.Services.AddScoped<JwtHelper>();
 builder.Services.AddScoped<SettingDemo>();
 
 // To register the IException filter 
